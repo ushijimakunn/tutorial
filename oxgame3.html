@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oxgame2</title>
+
+    <style type="text/css">
+      #field td{
+        width: 100px;
+        height: 100px;
+        font-size: 60px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <h1>○×ゲーム</h1>
+    <table id="field">
+      <tr>
+        <td id="b1"></td>
+        <td id="b2"></td>
+        <td id="b3"></td>
+      </tr>
+      <tr>
+        <td id="b4"></td>
+        <td id="b5"></td>
+        <td id="b6"></td>
+      </tr>
+      <tr>
+        <td id="b7"></td>
+        <td id="b8"></td>
+        <td id="b9"></td>
+      </tr>
+    </table>
+
+    <p id="game_result"></p>
+    
+    <p id="view_turn"></p>
+
+    <script type="text/javascript">
+      var turn = '○';
+      var count = 0;
+      
+      //b1~b9の要素を取得
+      var b1Msg = document.getElementById('b1');
+      var b2Msg = document.getElementById('b2');
+      var b3Msg = document.getElementById('b3');
+      var b4Msg = document.getElementById('b4');
+      var b5Msg = document.getElementById('b5');
+      var b6Msg = document.getElementById('b6');
+      var b7Msg = document.getElementById('b7');
+      var b8Msg = document.getElementById('b8');
+      var b9Msg = document.getElementById('b9');
+                  
+      var array1;
+
+      function mark(e){
+        if(e.target.innerHTML == ''){
+          e.target.innerHTML = turn;
+          change_turn();
+          count = count + 1;
+          judge_game();
+          end_game();
+        }
+      }
+
+      function change_turn(){
+        if (turn == '○'){
+          turn = '×';
+        }
+        else{
+          turn = '○';
+        }
+      }
+
+      function end_game(){
+        if(count == 9 ){
+          alert('終了しました。');
+        }
+      }
+
+      function judge_game(){
+      //盤の各要素を配列に格納
+        var array1 = [b1Msg.textContent,
+                      b2Msg.textContent,
+                      b3Msg.textContent,
+                      b4Msg.textContent,
+                      b5Msg.textContent,
+                      b6Msg.textContent,
+                      b7Msg.textContent,
+                      b8Msg.textContent,
+                      b9Msg.textContent];
+
+        if( array1[0] == '○' && 
+            array1[1] == '○' &&
+            array1[2] == '○' ){
+          judge_msg1();
+        }else if( array1[3] == '○' && 
+                  array1[4] == '○' &&
+                  array1[5] == '○'){
+          judge_msg1();
+        }else if( array1[6] == '○' && 
+                  array1[7] == '○' &&
+                  array1[8] == '○'){
+          judge_msg1();
+        }else if( array1[0] == '○' && 
+                  array1[3] == '○' &&
+                  array1[6] == '○'){
+          judge_msg1();
+        }else if( array1[1] == '○' && 
+                  array1[4] == '○' &&
+                  array1[7] == '○'){
+          judge_msg1();
+        }else if( array1[2] == '○' && 
+                  array1[5] == '○' &&
+                  array1[8] == '○'){
+          judge_msg1();
+        }else if( array1[0] == '○' && 
+                  array1[4] == '○' &&
+                  array1[8] == '○'){
+          judge_msg1();
+        }else if( array1[2] == '○' && 
+                  array1[4] == '○' &&
+                  array1[6] == '○'){
+          judge_msg1();
+        }else if( array1[0] == '×' && 
+                  array1[1] == '×' &&
+                  array1[2] == '×'){
+          judge_msg2();
+        }else if( array1[3] == '×' && 
+                  array1[4] == '×' &&
+                  array1[5] == '×'){
+          judge_msg2();
+        }else if( array1[6] == '×' && 
+                  array1[7] == '×' &&
+                  array1[8] == '×'){
+          judge_msg2();
+        }else if( array1[0] == '×' && 
+                  array1[3] == '×' &&
+                  array1[6] == '×'){
+          judge_msg2();
+        }else if( array1[1] == '×' && 
+                  array1[4] == '×' &&
+                  array1[7] == '×'){
+          judge_msg2();
+        }else if( array1[2] == '×' && 
+                  array1[5] == '×' &&
+                  array1[8] == '×'){
+          judge_msg2();
+        }else if( array1[0] == '×' && 
+                  array1[4] == '×' &&
+                  array1[8] == '×'){
+          judge_msg2();
+        }else if( array1[2] == '×' && 
+                  array1[4] == '×' &&
+                  array1[6] == '×'){
+          judge_msg2();
+        }
+
+
+      }
+
+      function judge_msg1(){
+        var resultMsg = document.getElementById('game_result')
+        resultMsg.textContent = "○の勝利！！"
+      }
+      
+      function judge_msg2(){
+        var resultMsg = document.getElementById('game_result')
+        resultMsg.textContent = "×の勝利！！"
+      }
+
+      function turn_msg(){
+        var turnMsg = document.getElementById('view_turn')
+        turnMsg.textContent = "あなたの番です。"
+      }
+
+      for(let i=1; i < 10; i++ ){
+        document.getElementById('b'+ i).addEventListener('click',mark);
+      };
+
+    </script>
+    
+  </body>
+</html>
